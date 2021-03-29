@@ -5,10 +5,10 @@ import javax.swing.event.*;
 
 /**
  *
- * Description
+ * Das Hauptmenue der App
  *
- * @version 1.0 from 04/02/2021
- * @author 
+ * @version 1.0 from 03/29/2021
+ * @JFK_Bruechner
  */
 
 public class MainMenu extends JFrame {

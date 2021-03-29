@@ -5,6 +5,14 @@ import javax.swing.event.*;
 import java.io.File;
 import org.ini4j.*;
 
+/**
+ *
+ * Die Klasse die zum erstellen der Aepfel genutzt wird
+ *
+ * @version 1.0 from 03/29/2021
+ * @JFK_Bruechner
+ */
+
 class Apple
 {
   private int posX;

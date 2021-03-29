@@ -6,10 +6,10 @@ import java.io.File;
 
 /**
  *
- * Description
+ * Das Fenster in dem das Spiel angezeigt wird
  *
- * @version 1.0 from 04/02/2021
- * @author 
+ * @version 1.0 from 03/29/2021
+ * @JFK_Bruechner
  */
 
 public class GameView extends JFrame {

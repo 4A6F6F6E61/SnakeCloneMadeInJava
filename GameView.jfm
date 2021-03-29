@@ -1,6 +1,6 @@
 object GameView: TFGUIForm
-  Left = 2307
-  Top = 105
+  Left = 1395
+  Top = 80
   BorderIcons = [biSystemMenu]
   Caption = 'GameView'
   ClientHeight = 531

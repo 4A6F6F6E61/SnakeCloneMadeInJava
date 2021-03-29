@@ -8,6 +8,14 @@ import java.util.TimerTask;
 import org.ini4j.*;
 import java.io.File;
 
+/**
+ *
+ * Das GameCanvas selbst.
+ *
+ * @version 1.0 from 03/29/2021
+ * @JFK_Bruechner
+ */
+
 public class GameCanvas extends JPanel implements KeyListener
 {
   Apple ppl;

@@ -3,6 +3,13 @@ import java.io.File;
 import org.ini4j.*;
 import org.ini4j.spi.*;
 
+/**
+ *
+ * Ueber diese Java-Datie startet man alles.
+ *
+ * @version 1.0 from 03/29/2021
+ * @JFK_Bruechner
+ */
 
 class Launch
 {
