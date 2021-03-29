@@ -1,0 +1,92 @@
+﻿[Files]
+File0=D:\Coding\Schule\SnakeCloneMadeInJava\About.java
+File1=D:\Coding\Schule\SnakeCloneMadeInJava\Apple.java
+File2=D:\Coding\Schule\SnakeCloneMadeInJava\GameCanvas.java
+File3=D:\Coding\Schule\SnakeCloneMadeInJava\GameView.java
+File4=D:\Coding\Schule\SnakeCloneMadeInJava\Launch.java
+File5=D:\Coding\Schule\SnakeCloneMadeInJava\MainMenu.java
+
+[Box:  - About]
+X=87
+Y=857
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - Apple]
+X=503
+Y=857
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - GameCanvas]
+X=502
+Y=374
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - GameView]
+X=329
+Y=80
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - Launch]
+X=80
+Y=80
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Box:  - MainMenu]
+X=93
+Y=374
+MinVis=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+FontSize=12
+FontName=Segoe UI
+
+[Diagram]
+comments=0
+OffsetX=0
+OffsetY=0
+Visibility=0
+ShowParameter=4
+SortOrder=0
+ShowIcons=1
+ShowConnections=0
+Fontname=Segoe UI
+Fontsize=12
+ShowObjectDiagram=0
+
+[Connections]
+V0=GameCanvas#Apple#AssociationDirected####0#0#0###0#0
+V1=GameView#GameCanvas#AssociationDirected####0#0#0###0#0
+V2=GameView#MainMenu#AssociationBidirectional####0#0#0###0#0
+V3=Launch#MainMenu#AssociationDirected####0#0#0###0#0
+V4=MainMenu#MainMenu#AssociationDirected####1#0#0###0#0
+V5=MainMenu#About#AssociationDirected####0#0#0###0#0
+
+[Interactive]
+I0=
+

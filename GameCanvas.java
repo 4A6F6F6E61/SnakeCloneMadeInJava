@@ -1,0 +1,120 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.util.ArrayList;
+import java.util.Timer; 
+import java.util.TimerTask;
+import org.ini4j.*;
+import java.io.File;
+
+public class GameCanvas extends JPanel implements KeyListener
+{
+  Apple ppl;
+  ArrayList<Integer> x = new ArrayList<Integer>();
+  ArrayList<Integer> y = new ArrayList<Integer>();    
+  String direction = "R";
+  Timer time = new Timer();
+  static Wini ini;
+  static int unit = 1;
+  static int width = 1;
+  static int height = 1;
+  boolean launched = false;
+  int snake_lenght = 2;
+    
+  public GameCanvas()
+  {
+    System.out.println("GameCanvas");
+    ppl = new Apple();
+    ppl.newPos(this);
+    x.add(0);
+    y.add(0);
+  }
+  
+  public void paint(Graphics g)
+  {
+    if(!launched){
+      try {
+        ini = new Wini(new File("settings.ini")); 
+        unit = ini.get("Grid Settings", "unit", int.class);
+        width = ini.get("Grid Settings", "width", int.class);
+        height = ini.get("Grid Settings", "height", int.class);
+      } catch(Exception e) {}
+      launched = true;
+    }
+    System.out.println(unit);
+    g.setColor(Color.green);
+    g.fillRect(0, 0, 700, 550);
+  
+    //for (int i = 0; i <= (snake_lenght-1); i++) {
+      g.setColor(Color.black);
+      g.fillRect(x.get(0), y.get(0), this.unit, this.unit);
+    //} 
+  
+    g.setColor(Color.red);
+    g.fillRect(ppl.getX(), ppl.getY(), this.unit, this.unit);     
+    try
+    {
+      System.out.println("test");
+      time.schedule(new TimerTask(){
+        @Override
+        public void run()
+        {
+          //for (int i = 0;i <= (snake_lenght-1);i++) {
+            x.set(0, x.get(0));
+            y.set(0, y.get(0));
+          //} // end of for
+          System.out.println(unit);
+          switch (direction) {
+            case "R" : 
+              x.set(0, (x.get(0) + unit));
+              break;
+            case "L" : 
+              x.set(0, (x.get(0) - unit));
+              break;
+            case "U" : 
+              y.set(0, (y.get(0) + unit));
+              break;
+            case "D" : 
+              y.set(0, (y.get(0) - unit));
+              break;
+            default: 
+              
+          } // end of switch
+          repaint();
+        }
+      }, 800);
+    } catch(Exception e){}    
+
+  }
+  
+  @Override
+  public void keyPressed(KeyEvent e) {
+    System.out.println("Key pressed code=" + e.getKeyCode() + ", char=" + e.getKeyChar());
+    switch (e.getKeyCode()) {
+      case 40 :  // oben
+        this.direction = "U";
+        break;
+      case 38 :  // unten
+        this.direction = "D";
+        break;
+      case 39 :  // rechts
+        this.direction = "R";
+        break;
+      case 37 :  // links
+        this.direction = "L";
+        break;
+      default: 
+        
+    } // end of switch
+  }                              
+  @Override
+  public void keyReleased(KeyEvent e) {}
+  @Override
+  public void keyTyped(KeyEvent e) {}
+  
+  public void newApple()
+  {
+    ppl.newPos(this);
+  }
+}
