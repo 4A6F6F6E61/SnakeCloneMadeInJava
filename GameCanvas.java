@@ -81,20 +81,16 @@ public class GameCanvas extends JPanel implements KeyListener
             
           switch (direction) {
             case "R" : 
-              for (int i = 0; i <= (x.size()-1); i++) {
-                g.setColor(Color.black);
-                g.fillRect(x.get(i), y.get(i), this.unit, this.unit);
-              } 
               x.set(x.size()-1, (x.get(x.size()-1) + unit));
               break;
-            case "L" : 
+            case "L" :        
               x.set(x.size()-1, (x.get(x.size()-1) - unit));
               break;
             case "U" : 
               y.set(x.size()-1, (y.get(x.size()-1) + unit));
               break;
-            case "D" : 
-              y.set(x.size()-1, (y.get(x.size()-1) - unit));
+            case "D" :       
+              y.set(x.size()-1, (y.get(x.size()-1) - unit));   
               break;
             default:  
           } // end of switch
@@ -109,6 +105,10 @@ public class GameCanvas extends JPanel implements KeyListener
                   x.remove(0);
                   y.remove(0);  
                 } // end of if
+                for (int i = 1; i <= (x.size()-1); i++) {
+                  x.set(i-1, x.get(i));
+                  y.set(i-1, y.get(i));
+                }
                 break;
               case "L" : 
                 x.add(ppl.getX() - unit);
@@ -117,6 +117,10 @@ public class GameCanvas extends JPanel implements KeyListener
                   x.remove(0);
                   y.remove(0);  
                 } // end of if
+                for (int i = 1; i <= (x.size()-1); i++) {
+                  x.set(i-1, x.get(i));
+                  y.set(i-1, y.get(i));
+                }
                 break;
               case "U" : 
                 x.add(x.get(x.size()-1));
@@ -125,6 +129,10 @@ public class GameCanvas extends JPanel implements KeyListener
                   x.remove(0);
                   y.remove(0);  
                 } // end of if
+                for (int i = 1; i <= (x.size()-1); i++) {
+                  x.set(i-1, x.get(i));
+                  y.set(i-1, y.get(i));
+                }
                 break;
               case "D" : 
                 x.add(x.get(x.size()-1));
@@ -133,6 +141,10 @@ public class GameCanvas extends JPanel implements KeyListener
                   x.remove(0);
                   y.remove(0);  
                 } // end of if
+                for (int i = 1; i <= (x.size()-1); i++) {
+                  x.set(i-1, x.get(i));
+                  y.set(i-1, y.get(i));
+                }
                 break;
               default:  
             } // end of switch
