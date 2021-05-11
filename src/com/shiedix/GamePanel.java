@@ -161,6 +161,13 @@ public class GamePanel extends JPanel implements ActionListener
             }
         }
 
+        for(int i = bodyParts;i>0;i--) {
+            if((appleX == x[i])&& (appleY == y[i])) {
+                System.out.println("AU");
+                newApple();
+            }
+        }
+
         //check if head touches left border
         if(x[0] < 0) {
             running = false;
