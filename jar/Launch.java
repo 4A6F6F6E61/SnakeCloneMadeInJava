@@ -5,7 +5,7 @@ import org.ini4j.spi.*;
 
 /**
  *
- * Ueber diese Java-Datie startet man alles.
+ * Ueber diese Java-Datei startet man alles.
  *
  * @version 1.0 from 03/29/2021
  * @JFK_Bruechner
@@ -19,9 +19,6 @@ class Launch
   static int width = 1;
   static int height = 1;
   
-  public Launch()
-  {
-  }
   public static void main(String[] args)
   {          
     menu = new MainMenu("Snake");   

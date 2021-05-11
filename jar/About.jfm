@@ -1,10 +1,10 @@
-object GameView: TFGUIForm
-  Left = 1901
-  Top = 126
+object About: TFGUIForm
+  Left = 78
+  Top = 417
   BorderIcons = [biSystemMenu]
-  Caption = 'GameView'
-  ClientHeight = 531
-  ClientWidth = 497
+  Caption = 'About'
+  ClientHeight = 114
+  ClientWidth = 281
   Color = clBtnFace
   ParentFont = True
   FormStyle = fsStayOnTop
@@ -23,30 +23,13 @@ object GameView: TFGUIForm
   Background = clBtnFace
   PixelsPerInch = 96
   TextHeight = 13
-  object gameCanvas1: TACanvas
-    Tag = 39
-    Left = 8
-    Top = 40
-    Width = 480
-    Height = 480
-    Hint = 'gameCanvas1'
-    HelpKeyword = 'GameCanvas'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -12
-    Font.Name = 'Dialog'
-    Font.Style = []
-    Foreground = 3355443
-    Background = clBtnFace
-  end
-  object lScore: TJLabel
+  object lThisisaSnakeClonebyJFKBrueckner: TJLabel
     Tag = 1
     Left = 8
     Top = 8
-    Width = 169
-    Height = 25
+    Width = 266
+    Height = 49
     Hint = 'jLabel1'
-    HelpKeyword = 'GameCanvas'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -54,23 +37,22 @@ object GameView: TFGUIForm
     Font.Style = [fsBold]
     Foreground = 3355443
     Background = clBtnFace
-    Text = 'Score: '
-    HorizontalAlignment = LEFT
+    Text = 'This is a Snake Clone by JFK Brueckner'
+    HorizontalAlignment = CENTER
     VerticalAlignment = CENTER
-    HorizontalTextPosition = RIGHT
+    HorizontalTextPosition = CENTER
     VerticalTextPosition = CENTER
     IconTextGap = 4
     DisplayedMnemonic = 0
     DisplayedMnemonicIndex = 0
   end
-  object bMainMenu: TJButton
+  object bGitHub: TJButton
     Tag = 4
-    Left = 376
-    Top = 8
-    Width = 105
-    Height = 25
+    Left = 8
+    Top = 72
+    Width = 137
+    Height = 33
     Hint = 'jButton1'
-    HelpKeyword = 'GameCanvas'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -78,8 +60,8 @@ object GameView: TFGUIForm
     Font.Style = [fsBold]
     Foreground = 3355443
     Background = 15658734
-    actionPerformed = 'bMainMenu_ActionPerformed'
-    Text = 'Main Menu'
+    actionPerformed = 'bGitHub_ActionPerformed'
+    Text = 'GitHub'
     Mnemonic = 0
     DisplayedMnemonicIndex = 0
     Selected = False
@@ -108,14 +90,13 @@ object GameView: TFGUIForm
     Border.MatteBottom = 0
     Border.MatteRight = 0
   end
-  object bNewApple: TJButton
+  object bDone: TJButton
     Tag = 4
-    Left = 232
-    Top = 8
-    Width = 89
-    Height = 25
-    Hint = 'jButton1'
-    HelpKeyword = 'GameCanvas'
+    Left = 152
+    Top = 72
+    Width = 121
+    Height = 33
+    Hint = 'jButton2'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -123,8 +104,8 @@ object GameView: TFGUIForm
     Font.Style = [fsBold]
     Foreground = 3355443
     Background = 15658734
-    actionPerformed = 'bNewApple_ActionPerformed'
-    Text = 'New Apple'
+    actionPerformed = 'bDone_ActionPerformed'
+    Text = 'Done'
     Mnemonic = 0
     DisplayedMnemonicIndex = 0
     Selected = False

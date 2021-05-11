@@ -72,7 +72,7 @@ public class About extends JFrame {
     } catch (Exception e) {
         e.printStackTrace();
     }
-}
+  }
   
   public void bGitHub_ActionPerformed(ActionEvent evt) {
     // TODO add your code here
