@@ -1,4 +1,7 @@
 package com.shiedix;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -23,6 +26,12 @@ public class About extends JDialog {
     // Frame-Init dd
     super(owner, modal);
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    this.addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) {
+        updateDiscord("Main Menu");
+      }
+    });
+    updateDiscord("About");
     int frameWidth = 295; 
     int frameHeight = 149;
     setSize(frameWidth, frameHeight);
@@ -81,9 +90,15 @@ public class About extends JDialog {
 
   public void bDone_ActionPerformed(ActionEvent evt) {
     // TODO add your code here
+    updateDiscord("Main Menu");
     this.dispose();
   } // end of bDone_ActionPerformed
 
-  // end methods
+  private static void updateDiscord(String message)
+  {
+    DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder(""+ message);
+    discordPresence.setDetails("");
+    DiscordRPC.discordUpdatePresence(discordPresence.build());
+  }
 } // end of class About
 

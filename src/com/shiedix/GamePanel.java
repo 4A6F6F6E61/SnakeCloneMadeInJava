@@ -1,12 +1,13 @@
 package com.shiedix;
+
 import java.awt.*;
 import org.ini4j.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.File;
 import java.util.Random;
-
-
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 
 public class GamePanel extends JPanel implements ActionListener
 {
@@ -23,10 +24,10 @@ public class GamePanel extends JPanel implements ActionListener
     static Color text_high_score;
     static Color text_game_over;
     static Color text_current_score;
-    int x[];
-    int y[];
+    int[] x;
+    int[] y;
     int bodyParts = 6;
-    int applesEaten;
+    static int applesEaten;
     int high_score = 0;
     int appleX;
     int appleY;
@@ -52,15 +53,13 @@ public class GamePanel extends JPanel implements ActionListener
             high_score = (int) ini.get("High Score", "high_score", int.class);
             delay = (int) ini.get("Timer", "delay", int.class);
             switch ((int) ini.get("Theme", "current_theme", int.class)) {
-                case 0:
-                    setTheme("Material Dark");
-                    break;
-                case 1:
-                    setTheme("Material Light");
-                    break;
+                case 0 -> setTheme("Material Dark");
+                case 1, 2 -> setTheme("Material Light");
             }
 
-        } catch(Exception e) {}
+        } catch(Exception e) {
+            System.out.println("error:  " + e);
+        }
         game_units = (width*height)/(unit*unit);
         x = new int[game_units];
         y = new int[game_units];
@@ -70,6 +69,10 @@ public class GamePanel extends JPanel implements ActionListener
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         this.win = gf;
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            System.out.println("Closing Discord hook.");
+            DiscordRPC.discordShutdown();
+        }));
         startGame();
     }
 
@@ -89,6 +92,8 @@ public class GamePanel extends JPanel implements ActionListener
 
     public void draw(Graphics g)
     {
+        DiscordRPC.discordRunCallbacks();
+        updateDiscord();
         if(running) {
             g.setColor(apple_color);
             g.fillRect(appleX, appleY, unit, unit);
@@ -96,12 +101,11 @@ public class GamePanel extends JPanel implements ActionListener
             for(int i = 0; i< bodyParts;i++) {
                 if(i == 0) {
                     g.setColor(snake_head_color);
-                    g.fillRect(x[i], y[i], unit, unit);
                 } else {
                     g.setColor(snake_color);
                     //g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
-                    g.fillRect(x[i], y[i], unit, unit);
                 }
+                g.fillRect(x[i], y[i], unit, unit);
             }
             g.setColor(text_current_score);
             g.setFont( new Font("Times new Roman",Font.BOLD, 40));
@@ -127,19 +131,11 @@ public class GamePanel extends JPanel implements ActionListener
             y[i] = y[i-1];
         }
 
-        switch(direction) {
-            case 'U':
-                y[0] = y[0] - unit;
-                break;
-            case 'D':
-                y[0] = y[0] + unit;
-                break;
-            case 'L':
-                x[0] = x[0] - unit;
-                break;
-            case 'R':
-                x[0] = x[0] + unit;
-                break;
+        switch (direction) {
+            case 'U' -> y[0] = y[0] - unit;
+            case 'D' -> y[0] = y[0] + unit;
+            case 'L' -> x[0] = x[0] - unit;
+            case 'R' -> x[0] = x[0] + unit;
         }
     }
 
@@ -156,8 +152,9 @@ public class GamePanel extends JPanel implements ActionListener
     {
         //checks if head collides with body
         for(int i = bodyParts;i>0;i--) {
-            if((x[0] == x[i])&& (y[0] == y[i])) {
+            if ((x[0] == x[i]) && (y[0] == y[i])) {
                 running = false;
+                break;
             }
         }
 
@@ -220,7 +217,6 @@ public class GamePanel extends JPanel implements ActionListener
 
         g.setColor(text);
         g.setFont( new Font("Times new Roman",Font.BOLD, 30));
-        FontMetrics metrics3 = getFontMetrics(g.getFont());
         g.drawString("Press Enter to play again", 10, height - 4*unit);
         g.drawString("Press Backspace to Quit", 10, height - 3*unit);
     }
@@ -293,5 +289,12 @@ public class GamePanel extends JPanel implements ActionListener
                     break;
             }
         }
+    }
+
+    private static void updateDiscord()
+    {
+        DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder("Score: " + applesEaten);
+        discordPresence.setDetails("in Game");
+        DiscordRPC.discordUpdatePresence(discordPresence.build());
     }
 }

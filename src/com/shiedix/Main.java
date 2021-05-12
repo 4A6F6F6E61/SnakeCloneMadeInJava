@@ -1,4 +1,8 @@
 package com.shiedix;
+
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 import java.io.IOException;
 
 /**
@@ -14,6 +18,16 @@ class Main
     public static MainMenu menu;
 
     public static void main(String[] args) throws IOException {
+        initDiscord();
         menu = new MainMenu("Snake");
+    }
+    private static void initDiscord() {
+        DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {
+            System.out.println("Welcome " + user.username + "#" + user.discriminator + ".");
+            DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder("Starting...");
+            DiscordRPC.discordUpdatePresence(discordPresence.build());
+        }).build();
+        DiscordRPC.discordInitialize("841753821578526760", handlers, false);
+        DiscordRPC.discordRegister("841753821578526760", "");
     }
 }

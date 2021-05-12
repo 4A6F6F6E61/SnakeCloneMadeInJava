@@ -1,11 +1,11 @@
 package com.shiedix;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class GameFrame extends JFrame{
     GameFrame(){
         this.add(new GamePanel(this));
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setTitle("Snake");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.pack();
         this.setVisible(true);

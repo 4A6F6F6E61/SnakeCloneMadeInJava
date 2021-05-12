@@ -1,5 +1,7 @@
 package com.shiedix;
 
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
 import org.ini4j.Wini;
 import java.awt.*;
 import java.awt.event.*;
@@ -32,8 +34,9 @@ public class Settings extends JDialog
   private JLabel lHeight = new JLabel();
   private JLabel lDelay = new JLabel();
   private JLabel lTheme = new JLabel();
+  private MainMenu main;
   private String[] cbOptions = {
-          "Material Dark", "Material Light"
+          "Material Dark", "Material Light", "Windows Light"
   };
   private JComboBox cbTheme = new JComboBox(cbOptions);
   private JButton bCancle = new JButton();
@@ -42,10 +45,11 @@ public class Settings extends JDialog
   private boolean build = false;
   // end attributes
   
-  public Settings(JFrame owner, boolean modal)
+  public Settings(MainMenu owner, boolean modal)
   {
     // Dialog-Init
     super(owner, modal);
+    this.main = owner;
     try {
       if (build) {
         ini = new Wini(new File("settings.ini"));
@@ -54,6 +58,12 @@ public class Settings extends JDialog
       }
     } catch (Exception e) {}
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    this.addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) {
+        updateDiscord("Main Menu");
+      }
+    });
+    updateDiscord("Settings");
     int frameWidth = 271; 
     int frameHeight = 233;
     setSize(frameWidth, frameHeight);
@@ -198,48 +208,50 @@ public class Settings extends JDialog
       ini.store();
     } catch(Exception e) { }
   }
-
   public void changeTheme(int theme_number)
   {
     try {
+      switch (theme_number) {
+        case 0 -> {
+          main.theme("com.formdev.flatlaf.FlatDarculaLaf");
+        }
+        case 1 -> {
+          main.theme("com.formdev.flatlaf.FlatIntelliJLaf");
+        }
+        case 2 -> {
+          main.theme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        }
+      }
       ini.put("Theme", "current_theme", ""+theme_number);
       ini.store();
     } catch(Exception e) { }
   }
-  
-  // start methods
   public void bUnit_ActionPerformed(ActionEvent evt)
   {
     saveUnit();
-  } // end of bUnit_ActionPerformed
-
+  }
   public void bWidth_ActionPerformed(ActionEvent evt)
   {
     saveWidth();
-  } // end of bWidth_ActionPerformed
-
+  }
   public void bHeight_ActionPerformed(ActionEvent evt)
   {
     saveHeight();
-  } // end of bHeight_ActionPerformed
-
+  }
   public void bDelay_ActionPerformed(ActionEvent evt)
   {
     saveDelay();
-  } // end of bDelay_ActionPerformed
-
+  }
   public void bTheme_ActionPerformed(ActionEvent evt)
   {
     int index = (int) cbTheme.getSelectedIndex();
     changeTheme(index);
   } // end of bUnit_ActionPerformed
-
   public void bCancle_ActionPerformed(ActionEvent evt)
   {
-    // TODO add your code here
+    updateDiscord("Main Menu");
     this.dispose();
   } // end of bCancle_ActionPerformed
-
   public void bSaveall_ActionPerformed(ActionEvent evt)
   {
     int index = (int) cbTheme.getSelectedIndex();
@@ -256,10 +268,14 @@ public class Settings extends JDialog
       saveDelay();
     }
     changeTheme(index);
+    updateDiscord("Main Menu");
     this.dispose();
   } // end of bSaveall_ActionPerformed
-
-  // end methods
-  
+  private static void updateDiscord(String message)
+  {
+    DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder(""+message);
+    discordPresence.setDetails("");
+    DiscordRPC.discordUpdatePresence(discordPresence.build());
+  }
 } // end of class Settings
 

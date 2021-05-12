@@ -1,7 +1,12 @@
 package com.shiedix;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import javax.swing.*;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
+import org.ini4j.Wini;
 
 /**
  *
@@ -11,7 +16,8 @@ import javax.swing.*;
  * @author JFK_Bruechner
  */
 
-public class MainMenu extends JFrame {
+public class MainMenu extends JFrame
+{
   // start attributes
   private JLabel lSnakeClonemadeinJava = new JLabel();
   private JButton bPlay = new JButton();
@@ -23,12 +29,16 @@ public class MainMenu extends JFrame {
   public static MainMenu menu;
   public static About aboutDialog;
   public static GameFrame game;
+  static Wini ini;
+  boolean build = false;
   //End Frames
   
-  public MainMenu(String title) { 
+  public MainMenu(String title)
+  {
     // Frame-Init
     super();
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    updateDiscord();
     int frameWidth = 296; 
     int frameHeight = 283;
     setSize(frameWidth, frameHeight);
@@ -85,8 +95,17 @@ public class MainMenu extends JFrame {
     // end components
     // start style
     try {
+      if (build) {
+        ini = new Wini(new File("settings.ini"));
+      } else {
+        ini = new Wini(new File("src/com/shiedix/settings.ini"));
+      }
       UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarculaLaf");
-      SwingUtilities.updateComponentTreeUI(this);
+      switch ((int) ini.get("Theme", "current_theme", int.class)) {
+        case 0 -> theme("com.formdev.flatlaf.FlatDarculaLaf");
+        case 1 -> theme("com.formdev.flatlaf.FlatIntelliJLaf");
+        case 2 -> theme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+      }
     } catch(Exception e) {}
     // end style
     setVisible(true);
@@ -94,26 +113,43 @@ public class MainMenu extends JFrame {
   
   // start methods
   
-  public void bPlay_ActionPerformed(ActionEvent evt) {
+  public void bPlay_ActionPerformed(ActionEvent evt)
+  {
     // TODO add your code here
     game = new GameFrame();
     this.dispose();
   } // end of bPlay_ActionPerformed
 
-  public void bSettings_ActionPerformed(ActionEvent evt) {
+  public void bSettings_ActionPerformed(ActionEvent evt)
+  {
     // TODO add your code here
     new Settings(this, true);
   }
 
-  public void bAbout_ActionPerformed(ActionEvent evt) {
+  public void bAbout_ActionPerformed(ActionEvent evt)
+  {
     // TODO add your code here
     aboutDialog = new About(this, true);
   } // end of bAbout_ActionPerformed
 
-  public void bExit_ActionPerformed(ActionEvent evt) {
+  public void bExit_ActionPerformed(ActionEvent evt)
+  {
     // TODO add your code here
     this.dispose();
   } // end of bExit_ActionPerformed
+
+  public void theme(String theme) throws Exception
+  {
+    UIManager.setLookAndFeel(theme);
+    SwingUtilities.updateComponentTreeUI(this);
+  }
+
+  private static void updateDiscord()
+  {
+    DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder("Main menu");
+    discordPresence.setDetails("");
+    DiscordRPC.discordUpdatePresence(discordPresence.build());
+  }
 
   // end methods
 } // end of class MainMenu
