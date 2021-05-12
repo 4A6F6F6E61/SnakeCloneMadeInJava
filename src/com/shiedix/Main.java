@@ -16,12 +16,18 @@ import java.io.IOException;
 class Main
 {
     public static MainMenu menu;
+    public static final boolean BUILD = false;
+
+    public Main()
+    {
+        Runtime.getRuntime().addShutdownHook(new Thread(DiscordRPC::discordShutdown));
+    }
 
     public static void main(String[] args) throws IOException {
         initDiscord();
         menu = new MainMenu("Snake");
     }
-    private static void initDiscord() {
+    public static void initDiscord() {
         DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {
             System.out.println("Welcome " + user.username + "#" + user.discriminator + ".");
             DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder("Starting...");

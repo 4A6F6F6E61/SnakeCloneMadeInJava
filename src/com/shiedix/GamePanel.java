@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements ActionListener
     int appleY;
     char direction = 'R';
     boolean running = false;
-    boolean build = false;
+    boolean build = Main.BUILD;
     Timer timer;
     Random random;
     static Wini ini;
@@ -69,10 +69,6 @@ public class GamePanel extends JPanel implements ActionListener
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         this.win = gf;
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Closing Discord hook.");
-            DiscordRPC.discordShutdown();
-        }));
         startGame();
     }
 

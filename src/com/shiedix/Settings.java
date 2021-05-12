@@ -42,7 +42,7 @@ public class Settings extends JDialog
   private JButton bCancle = new JButton();
   private JButton bSaveall = new JButton();
   private Wini ini;
-  private boolean build = false;
+  private boolean build = Main.BUILD;
   // end attributes
   
   public Settings(MainMenu owner, boolean modal)

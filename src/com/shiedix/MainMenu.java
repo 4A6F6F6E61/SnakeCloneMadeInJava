@@ -30,7 +30,7 @@ public class MainMenu extends JFrame
   public static About aboutDialog;
   public static GameFrame game;
   static Wini ini;
-  boolean build = false;
+  boolean build = Main.BUILD;
   //End Frames
   
   public MainMenu(String title)
