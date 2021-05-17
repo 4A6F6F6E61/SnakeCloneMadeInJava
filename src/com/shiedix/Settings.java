@@ -179,7 +179,6 @@ public class Settings extends JDialog
     setResizable(false);
     setVisible(true);
   } // end of public Settings
-
   public void saveUnit()
   {
     try {
@@ -208,18 +207,26 @@ public class Settings extends JDialog
       ini.store();
     } catch(Exception e) { }
   }
+  public void sTheme(String theme) throws Exception
+  {
+    UIManager.setLookAndFeel(theme);
+    SwingUtilities.updateComponentTreeUI(this);
+  }
   public void changeTheme(int theme_number)
   {
     try {
       switch (theme_number) {
         case 0 -> {
           main.theme("com.formdev.flatlaf.FlatDarculaLaf");
+          sTheme("com.formdev.flatlaf.FlatDarculaLaf");
         }
         case 1 -> {
           main.theme("com.formdev.flatlaf.FlatIntelliJLaf");
+          sTheme("com.formdev.flatlaf.FlatIntelliJLaf");
         }
         case 2 -> {
           main.theme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+          sTheme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         }
       }
       ini.put("Theme", "current_theme", ""+theme_number);
