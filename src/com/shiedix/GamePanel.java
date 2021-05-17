@@ -1,5 +1,4 @@
 package com.shiedix;
-
 import java.awt.*;
 import org.ini4j.*;
 import java.awt.event.*;
@@ -71,7 +70,6 @@ public class GamePanel extends JPanel implements ActionListener
         this.win = gf;
         startGame();
     }
-
     public void startGame()
     {
         newApple();
@@ -79,13 +77,11 @@ public class GamePanel extends JPanel implements ActionListener
         timer = new Timer(delay,this);
         timer.start();
     }
-
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         draw(g);
     }
-
     public void draw(Graphics g)
     {
         DiscordRPC.discordRunCallbacks();
@@ -113,13 +109,11 @@ public class GamePanel extends JPanel implements ActionListener
             gameOver(g);
         }
     }
-
     public void newApple()
     {
         appleX = random.nextInt((int)(width/unit))*unit;
         appleY = random.nextInt((int)(height/unit))*unit;
     }
-
     public void move()
     {
         for(int i = bodyParts;i>0;i--) {
@@ -134,7 +128,6 @@ public class GamePanel extends JPanel implements ActionListener
             case 'R' -> x[0] = x[0] + unit;
         }
     }
-
     public void checkApple()
     {
         if((x[0] == appleX) && (y[0] == appleY)) {
@@ -143,7 +136,6 @@ public class GamePanel extends JPanel implements ActionListener
             newApple();
         }
     }
-
     public void checkCollisions()
     {
         //checks if head collides with body
@@ -194,7 +186,6 @@ public class GamePanel extends JPanel implements ActionListener
             }
         }
     }
-
     public void gameOver(Graphics g)
     {
         //Score
@@ -216,7 +207,6 @@ public class GamePanel extends JPanel implements ActionListener
         g.drawString("Press Enter to play again", 10, height - 4*unit);
         g.drawString("Press Backspace to Quit", 10, height - 3*unit);
     }
-
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -227,14 +217,13 @@ public class GamePanel extends JPanel implements ActionListener
         }
         repaint();
     }
-
-    public static Color hex2Rgb(String colorStr) {
+    public static Color hex2Rgb(String colorStr)
+    {
         return new Color(
                 Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
                 Integer.valueOf( colorStr.substring( 3, 5 ), 16 ),
                 Integer.valueOf( colorStr.substring( 5, 7 ), 16 ) );
     }
-
     public void setTheme(String name)
     {
         background_color = hex2Rgb((String) ini.get(name, "background_color", String.class));
@@ -246,7 +235,6 @@ public class GamePanel extends JPanel implements ActionListener
         text_game_over = hex2Rgb((String) ini.get(name, "text_game_over", String.class));
         text_current_score = hex2Rgb((String) ini.get(name, "text_current_score", String.class));
     }
-
     public class MyKeyAdapter extends KeyAdapter
     {
         @Override
@@ -286,7 +274,6 @@ public class GamePanel extends JPanel implements ActionListener
             }
         }
     }
-
     private static void updateDiscord()
     {
         DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder("Score: " + applesEaten);

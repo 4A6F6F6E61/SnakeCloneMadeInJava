@@ -1,17 +1,8 @@
 package com.shiedix;
-
 import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import java.io.IOException;
-
-/**
- *
- * Ueber diese Java-Datei startet man alles.
- *
- * @version 1.0 from 03/29/2021
- * @author JFK_Bruechner
- */
 
 class Main
 {
@@ -22,12 +13,13 @@ class Main
     {
         Runtime.getRuntime().addShutdownHook(new Thread(DiscordRPC::discordShutdown));
     }
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException
+    {
         initDiscord();
         menu = new MainMenu("Snake");
     }
-    public static void initDiscord() {
+    public static void initDiscord()
+    {
         DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler((user) -> {
             System.out.println("Welcome " + user.username + "#" + user.discriminator + ".");
             DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder("Starting...");

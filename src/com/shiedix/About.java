@@ -7,22 +7,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.net.*;
 
-/**
- *
- * About Fenster
- *
- * @version 1.0 from 03/29/2021
- * @author JFK_Bruechner
- */
-
-public class About extends JDialog {
-  // start attributes
-  private JLabel lThisisaSnakeClonebyJFKBrueckner = new JLabel();
-  private JButton bGitHub = new JButton();
-  private JButton bDone = new JButton();
-  // end attributes
-  
-  public About(JFrame owner, boolean modal) {
+public class About extends JDialog
+{
+  public About(JFrame owner, boolean modal)
+  {
     // Frame-Init dd
     super(owner, modal);
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -44,12 +32,15 @@ public class About extends JDialog {
     Container cp = getContentPane();
     cp.setLayout(null);
     // start components
-    
+
+    // start attributes
+    JLabel lThisisaSnakeClonebyJFKBrueckner = new JLabel();
     lThisisaSnakeClonebyJFKBrueckner.setBounds(8, 8, 266, 49);
     lThisisaSnakeClonebyJFKBrueckner.setText("This is a Snake Clone by JFK Brueckner");
     lThisisaSnakeClonebyJFKBrueckner.setHorizontalTextPosition(SwingConstants.CENTER);
     lThisisaSnakeClonebyJFKBrueckner.setHorizontalAlignment(SwingConstants.CENTER);
     cp.add(lThisisaSnakeClonebyJFKBrueckner);
+    JButton bGitHub = new JButton();
     bGitHub.setBounds(8, 72, 137, 33);
     bGitHub.setText("GitHub");
     bGitHub.setMargin(new Insets(2, 2, 2, 2));
@@ -59,6 +50,7 @@ public class About extends JDialog {
       }
     });
     cp.add(bGitHub);
+    JButton bDone = new JButton();
     bDone.setBounds(152, 72, 121, 33);
     bDone.setText("Done");
     bDone.setMargin(new Insets(2, 2, 2, 2));
@@ -71,34 +63,29 @@ public class About extends JDialog {
     // end components
     
     setVisible(true);
-  } // end of public About
-  
-  // start methods
-  
-  public static void openWebpage(String urlString) {
+  }
+  public static void openWebpage(String urlString)
+  {
     try {
         Desktop.getDesktop().browse(new URL(urlString).toURI());
     } catch (Exception e) {
         e.printStackTrace();
     }
   }
-  
-  public void bGitHub_ActionPerformed(ActionEvent evt) {
-    // TODO add your code here
+  public void bGitHub_ActionPerformed(ActionEvent evt)
+  {
     openWebpage("https://github.com/Zockedidock/SnakeCloneMadeInJava/");
-  } // end of bGitHub_ActionPerformed
-
-  public void bDone_ActionPerformed(ActionEvent evt) {
-    // TODO add your code here
+  }
+  public void bDone_ActionPerformed(ActionEvent evt)
+  {
     updateDiscord("Main Menu");
     this.dispose();
-  } // end of bDone_ActionPerformed
-
+  }
   private static void updateDiscord(String message)
   {
     DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder(""+ message);
     discordPresence.setDetails("");
     DiscordRPC.discordUpdatePresence(discordPresence.build());
   }
-} // end of class About
+}
 

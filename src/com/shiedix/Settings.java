@@ -1,5 +1,4 @@
 package com.shiedix;
-
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import org.ini4j.Wini;
@@ -7,56 +6,36 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
-import javax.swing.event.*;
-
-/**
- *
- * Description
- *
- * @version 1.0 from 10/05/2021
- * @author Joona Brückner
- */
 
 public class Settings extends JDialog
 {
   // start attributes
-  private JTextField tfUnit = new JTextField();
-  private JTextField tfwidth = new JTextField();
-  private JTextField tfHeight = new JTextField();
-  private JTextField tfDelay = new JTextField();
-  private JButton bUnit = new JButton();
-  private JButton bWidth = new JButton();
-  private JButton bHeight = new JButton();
-  private JButton bDelay = new JButton();
-  private JButton bTheme = new JButton();
-  private JLabel lUnit = new JLabel();
-  private JLabel lWidth = new JLabel();
-  private JLabel lHeight = new JLabel();
-  private JLabel lDelay = new JLabel();
-  private JLabel lTheme = new JLabel();
-  private MainMenu main;
-  private String[] cbOptions = {
+  private final JTextField tfUnit = new JTextField();
+  private final JTextField tfWidth = new JTextField();
+  private final JTextField tfHeight = new JTextField();
+  private final JTextField tfDelay = new JTextField();
+  private final MainMenu main;
+  private final String[] cbOptions = {
           "Material Dark", "Material Light", "Windows Light"
   };
-  private JComboBox cbTheme = new JComboBox(cbOptions);
-  private JButton bCancle = new JButton();
-  private JButton bSaveall = new JButton();
+  private final JComboBox cbTheme = new JComboBox(cbOptions);
   private Wini ini;
-  private boolean build = Main.BUILD;
-  // end attributes
-  
+
   public Settings(MainMenu owner, boolean modal)
   {
     // Dialog-Init
     super(owner, modal);
     this.main = owner;
     try {
+      boolean build = Main.BUILD;
       if (build) {
         ini = new Wini(new File("settings.ini"));
       } else {
         ini = new Wini(new File("src/com/shiedix/settings.ini"));
       }
-    } catch (Exception e) {}
+    } catch (Exception e) {
+      System.out.println("Error: "+e);
+    }
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     this.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -80,15 +59,16 @@ public class Settings extends JDialog
     tfUnit.setToolTipText("Unit...");
     tfUnit.setText("");
     cp.add(tfUnit);
-    tfwidth.setBounds(48, 40, 137, 25);
-    tfwidth.setToolTipText("Width...");
-    cp.add(tfwidth);
+    tfWidth.setBounds(48, 40, 137, 25);
+    tfWidth.setToolTipText("Width...");
+    cp.add(tfWidth);
     tfHeight.setBounds(48, 72, 137, 25);
     tfHeight.setToolTipText("Height...");
     cp.add(tfHeight);
     tfDelay.setBounds(48, 104, 137, 25);
     tfDelay.setToolTipText("Thread time...");
     cp.add(tfDelay);
+    JButton bUnit = new JButton();
     bUnit.setBounds(192, 8, 57, 25);
     bUnit.setText("Save");
     bUnit.setMargin(new Insets(2, 2, 2, 2));
@@ -98,6 +78,7 @@ public class Settings extends JDialog
       }
     });
     cp.add(bUnit);
+    JButton bWidth = new JButton();
     bWidth.setBounds(192, 40, 57, 25);
     bWidth.setText("Save");
     bWidth.setMargin(new Insets(2, 2, 2, 2));
@@ -107,6 +88,7 @@ public class Settings extends JDialog
       }
     });
     cp.add(bWidth);
+    JButton bHeight = new JButton();
     bHeight.setBounds(192, 72, 57, 25);
     bHeight.setText("Save");
     bHeight.setMargin(new Insets(2, 2, 2, 2));
@@ -116,6 +98,7 @@ public class Settings extends JDialog
       }
     });
     cp.add(bHeight);
+    JButton bDelay = new JButton();
     bDelay.setBounds(192, 104, 57, 25);
     bDelay.setText("Save");
     bDelay.setMargin(new Insets(2, 2, 2, 2));
@@ -125,18 +108,23 @@ public class Settings extends JDialog
       }
     });
     cp.add(bDelay);
+    JLabel lUnit = new JLabel();
     lUnit.setBounds(8, 8, 33, 25);
     lUnit.setText("Unit:");
     cp.add(lUnit);
+    JLabel lWidth = new JLabel();
     lWidth.setBounds(8, 40, 40, 25);
     lWidth.setText("Width:");
     cp.add(lWidth);
+    JLabel lHeight = new JLabel();
     lHeight.setBounds(8, 72, 43, 25);
     lHeight.setText("Height:");
     cp.add(lHeight);
+    JLabel lDelay = new JLabel();
     lDelay.setBounds(8, 104, 38, 25);
     lDelay.setText("Delay:");
     cp.add(lDelay);
+    JLabel lTheme = new JLabel();
     lTheme.setBounds(8, 134, 43, 25);
     lTheme.setText("Theme:");
     cp.add(lTheme);
@@ -144,9 +132,12 @@ public class Settings extends JDialog
     int temp = 0;
     try {
       temp = (int) ini.get("Theme", "current_theme", int.class);
-    } catch (Exception e) {}
+    } catch (Exception e) {
+      System.out.println("Error: "+e);
+    }
     cbTheme.setSelectedIndex(temp);
     cp.add(cbTheme);
+    JButton bTheme = new JButton();
     bTheme.setBounds(192, 134, 57, 25);
     bTheme.setText("Save");
     bTheme.setMargin(new Insets(2, 2, 2, 2));
@@ -156,6 +147,7 @@ public class Settings extends JDialog
       }
     });
     cp.add(bTheme);
+    JButton bCancle = new JButton();
     bCancle.setBounds(24, 164, 97, 25);
     bCancle.setText("cancle");
     bCancle.setMargin(new Insets(2, 2, 2, 2));
@@ -165,6 +157,7 @@ public class Settings extends JDialog
       }
     });
     cp.add(bCancle);
+    JButton bSaveall = new JButton();
     bSaveall.setBounds(128, 164, 97, 25);
     bSaveall.setText("Save all");
     bSaveall.setMargin(new Insets(2, 2, 2, 2));
@@ -178,34 +171,42 @@ public class Settings extends JDialog
     
     setResizable(false);
     setVisible(true);
-  } // end of public Settings
+  }
   public void saveUnit()
   {
     try {
       ini.put("Grid Settings", "unit", ""+tfUnit.getText());
       ini.store();
-    } catch(Exception e) { }
+    } catch(Exception e) {
+      System.out.println("Error: "+e);
+    }
   }
   public void saveWidth()
   {
     try {
-      ini.put("Grid Settings", "width", ""+tfwidth.getText());
+      ini.put("Grid Settings", "width", ""+ tfWidth.getText());
       ini.store();
-    } catch(Exception e) { }
+    } catch(Exception e) {
+      System.out.println("Error: "+e);
+    }
   }
   public void saveHeight()
   {
     try {
       ini.put("Grid Settings", "height", ""+tfHeight.getText());
       ini.store();
-    } catch(Exception e) { }
+    } catch(Exception e) {
+      System.out.println("Error: "+e);
+    }
   }
   public void saveDelay()
   {
     try {
       ini.put("Timer", "delay", ""+tfDelay.getText());
       ini.store();
-    } catch(Exception e) { }
+    } catch(Exception e) {
+      System.out.println("Error: "+e);
+    }
   }
   public void sTheme(String theme) throws Exception
   {
@@ -231,7 +232,9 @@ public class Settings extends JDialog
       }
       ini.put("Theme", "current_theme", ""+theme_number);
       ini.store();
-    } catch(Exception e) { }
+    } catch(Exception e) {
+      System.out.println("Error: "+e);
+    }
   }
   public void bUnit_ActionPerformed(ActionEvent evt)
   {
@@ -251,21 +254,21 @@ public class Settings extends JDialog
   }
   public void bTheme_ActionPerformed(ActionEvent evt)
   {
-    int index = (int) cbTheme.getSelectedIndex();
+    int index = cbTheme.getSelectedIndex();
     changeTheme(index);
-  } // end of bUnit_ActionPerformed
+  } 
   public void bCancle_ActionPerformed(ActionEvent evt)
   {
     updateDiscord("Main Menu");
     this.dispose();
-  } // end of bCancle_ActionPerformed
+  } 
   public void bSaveall_ActionPerformed(ActionEvent evt)
   {
-    int index = (int) cbTheme.getSelectedIndex();
+    int index = cbTheme.getSelectedIndex();
     if (!tfHeight.getText().equals("")) {
       saveHeight();
     }
-    if (!tfwidth.getText().equals("")) {
+    if (!tfWidth.getText().equals("")) {
       saveWidth();
     }
     if (!tfUnit.getText().equals("")) {
@@ -277,12 +280,12 @@ public class Settings extends JDialog
     changeTheme(index);
     updateDiscord("Main Menu");
     this.dispose();
-  } // end of bSaveall_ActionPerformed
+  } 
   private static void updateDiscord(String message)
   {
     DiscordRichPresence.Builder discordPresence = new DiscordRichPresence.Builder(""+message);
     discordPresence.setDetails("");
     DiscordRPC.discordUpdatePresence(discordPresence.build());
   }
-} // end of class Settings
+} 
 
