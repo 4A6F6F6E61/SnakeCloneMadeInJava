@@ -53,7 +53,8 @@ public class GamePanel extends JPanel implements ActionListener
             delay = (int) ini.get("Timer", "delay", int.class);
             switch ((int) ini.get("Theme", "current_theme", int.class)) {
                 case 0 -> setTheme("Material Dark");
-                case 1, 2 -> setTheme("Material Light");
+                case 1 -> setTheme("Material Light");
+                case 2 -> setTheme("Windows Light");
             }
 
         } catch(Exception e) {
@@ -68,6 +69,7 @@ public class GamePanel extends JPanel implements ActionListener
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
         this.win = gf;
+        applesEaten = 0;
         startGame();
     }
     public void startGame()
@@ -95,7 +97,6 @@ public class GamePanel extends JPanel implements ActionListener
                     g.setColor(snake_head_color);
                 } else {
                     g.setColor(snake_color);
-                    //g.setColor(new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255)));
                 }
                 g.fillRect(x[i], y[i], unit, unit);
             }
@@ -175,14 +176,15 @@ public class GamePanel extends JPanel implements ActionListener
         }
         if(!running) {
             timer.stop();
-            if(applesEaten > high_score) {
-                high_score = applesEaten;
-                try {
+            try {
+                ini.put("Points", "value", ""+(((int)ini.get("Points", "value", int.class)) + applesEaten));
+                if(applesEaten > high_score) {
+                    high_score = applesEaten;
                     ini.put("High Score", "high_score", ""+applesEaten);
-                    ini.store();
-                } catch (Exception e) {
-                    System.out.println("error:  " + e);
                 }
+                ini.store();
+            } catch (Exception e) {
+                System.out.println("error:  " + e);
             }
         }
     }
@@ -226,14 +228,19 @@ public class GamePanel extends JPanel implements ActionListener
     }
     public void setTheme(String name)
     {
+        String sName = "";
         background_color = hex2Rgb((String) ini.get(name, "background_color", String.class));
-        snake_color = hex2Rgb((String) ini.get(name, "snake_color", String.class));
-        snake_head_color = hex2Rgb((String) ini.get(name, "snake_head_color", String.class));
         apple_color = hex2Rgb((String) ini.get(name, "apple_color", String.class));
         text = hex2Rgb((String) ini.get(name, "text", String.class));
         text_high_score = hex2Rgb((String) ini.get(name, "text_high_score", String.class));
         text_game_over = hex2Rgb((String) ini.get(name, "text_game_over", String.class));
         text_current_score = hex2Rgb((String) ini.get(name, "text_current_score", String.class));
+        switch((int) ini.get("Theme", "snake_theme", int.class)) {
+            case 0 -> sName = "Default";
+            case 1 -> sName = "Pink Snake";
+        }
+        snake_color = hex2Rgb((String) ini.get(sName, "snake_color", String.class));
+        snake_head_color = hex2Rgb((String) ini.get(sName, "snake_head_color", String.class));
     }
     public class MyKeyAdapter extends KeyAdapter
     {

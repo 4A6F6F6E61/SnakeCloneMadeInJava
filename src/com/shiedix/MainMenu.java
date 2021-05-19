@@ -135,4 +135,3 @@ public class MainMenu extends JFrame
     DiscordRPC.discordUpdatePresence(discordPresence.build());
   }
 }
-

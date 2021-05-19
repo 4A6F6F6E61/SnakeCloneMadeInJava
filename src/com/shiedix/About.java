@@ -1,7 +1,6 @@
 package com.shiedix;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -88,4 +87,3 @@ public class About extends JDialog
     DiscordRPC.discordUpdatePresence(discordPresence.build());
   }
 }
-
