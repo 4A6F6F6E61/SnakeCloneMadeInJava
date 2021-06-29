@@ -14,7 +14,13 @@ public class Settings extends JDialog
   private final JTextField tfWidth = new JTextField();
   private final JTextField tfHeight = new JTextField();
   private final JTextField tfDelay = new JTextField();
+  static int width;
+  static int height;
+  static int unit;
+  static int game_units;
+  static int delay;
   private final MainMenu main;
+  boolean build = Main.BUILD;
   private final String[] cbOptions = {
           "Material Dark", "Material Light", "Windows Light"
   };
@@ -23,19 +29,23 @@ public class Settings extends JDialog
 
   public Settings(MainMenu owner, boolean modal)
   {
+
     // Dialog-Init
     super(owner, modal);
-    this.main = owner;
     try {
-      boolean build = Main.BUILD;
       if (build) {
         ini = new Wini(new File("settings.ini"));
       } else {
         ini = new Wini(new File("src/com/shiedix/settings.ini"));
       }
-    } catch (Exception e) {
-      System.out.println("Error: "+e);
+      unit = (int) ini.get("Grid Settings", "unit", int.class);
+      width = (int) ini.get("Grid Settings", "width", int.class);
+      height = (int) ini.get("Grid Settings", "height", int.class);
+      delay = (int) ini.get("Timer", "delay", int.class);
+    } catch(Exception e) {
+      System.out.println("error:  " + e);
     }
+    this.main = owner;
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     this.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
@@ -57,16 +67,19 @@ public class Settings extends JDialog
     
     tfUnit.setBounds(48, 8, 137, 25);
     tfUnit.setToolTipText("Unit...");
-    tfUnit.setText("");
+    tfUnit.setText("" + unit);
     cp.add(tfUnit);
     tfWidth.setBounds(48, 40, 137, 25);
     tfWidth.setToolTipText("Width...");
+    tfWidth.setText("" + width);
     cp.add(tfWidth);
     tfHeight.setBounds(48, 72, 137, 25);
     tfHeight.setToolTipText("Height...");
+    tfHeight.setText("" + height);
     cp.add(tfHeight);
     tfDelay.setBounds(48, 104, 137, 25);
     tfDelay.setToolTipText("Thread time...");
+    tfDelay.setText("" + delay);
     cp.add(tfDelay);
     JButton bUnit = new JButton();
     bUnit.setBounds(192, 8, 57, 25);
@@ -136,6 +149,7 @@ public class Settings extends JDialog
       System.out.println("Error: "+e);
     }
     cbTheme.setSelectedIndex(temp);
+    cbTheme.setToolTipText("Theme...");
     cp.add(cbTheme);
     JButton bTheme = new JButton();
     bTheme.setBounds(192, 134, 57, 25);
