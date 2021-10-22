@@ -7,6 +7,14 @@ import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
 
+@interface Author {
+  String name();
+  String github();
+}
+@Author(
+        name = "Joona Brueckner",
+        github = "@Zockedidock"
+)
 public class Settings extends JDialog
 {
   // start attributes
@@ -17,12 +25,11 @@ public class Settings extends JDialog
   static int width;
   static int height;
   static int unit;
-  static int game_units;
   static int delay;
   private final MainMenu main;
   boolean build = Main.BUILD;
   private final String[] cbOptions = {
-          "Material Dark", "Material Light", "Windows Light"
+          "Material Dark", "Material Light", "Windows Light", "Default"
   };
   private final JComboBox cbTheme = new JComboBox(cbOptions);
   private Wini ini;
