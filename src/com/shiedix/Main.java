@@ -1,9 +1,14 @@
 package com.shiedix;
+
 import net.arikia.dev.drpc.DiscordEventHandlers;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import java.io.IOException;
 
+@Author(
+        name = "Joona Brueckner",
+        github = "@Zockedidock"
+)
 class Main
 {
     public static MainMenu menu;

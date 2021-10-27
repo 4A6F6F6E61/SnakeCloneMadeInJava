@@ -1,4 +1,5 @@
 package com.shiedix;
+
 import java.awt.*;
 import org.ini4j.*;
 import java.awt.event.*;
@@ -8,6 +9,10 @@ import java.util.Random;
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 
+@Author(
+        name = "Joona Brueckner",
+        github = "@Zockedidock"
+)
 public class GamePanel extends JPanel implements ActionListener
 {
     static int width;

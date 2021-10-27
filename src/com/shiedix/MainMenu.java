@@ -1,4 +1,5 @@
 package com.shiedix;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -7,6 +8,10 @@ import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import org.ini4j.Wini;
 
+@Author(
+        name = "Joona Brueckner",
+        github = "@Zockedidock"
+)
 public class MainMenu extends JFrame
 {
   //Start Frames
@@ -95,6 +100,9 @@ public class MainMenu extends JFrame
         case 0 -> theme("com.formdev.flatlaf.FlatDarculaLaf");
         case 1 -> theme("com.formdev.flatlaf.FlatIntelliJLaf");
         case 2 -> theme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        case 3 -> theme("javax.swing.plaf.metal.MetalLookAndFeel");
+        case 4 -> theme("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+        case 5 -> theme(UIManager.getCrossPlatformLookAndFeelClassName());
       }
     } catch(Exception e) {
       System.out.println("Error: "+e);

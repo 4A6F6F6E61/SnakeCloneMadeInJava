@@ -1,4 +1,5 @@
 package com.shiedix;
+
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import org.ini4j.Wini;
@@ -7,10 +8,6 @@ import java.awt.event.*;
 import java.io.File;
 import javax.swing.*;
 
-@interface Author {
-  String name();
-  String github();
-}
 @Author(
         name = "Joona Brueckner",
         github = "@Zockedidock"
@@ -29,7 +26,7 @@ public class Settings extends JDialog
   private final MainMenu main;
   boolean build = Main.BUILD;
   private final String[] cbOptions = {
-          "Material Dark", "Material Light", "Windows Light", "Default"
+          "Material Dark", "Material Light", "Windows Light", "Default Java L&F", "Motif L&F", "Default OS L&F"
   };
   private final JComboBox cbTheme = new JComboBox(cbOptions);
   private Wini ini;
@@ -40,11 +37,11 @@ public class Settings extends JDialog
     // Dialog-Init
     super(owner, modal);
     try {
-      if (build) {
+      if (build)
         ini = new Wini(new File("settings.ini"));
-      } else {
+      else
         ini = new Wini(new File("src/com/shiedix/settings.ini"));
-      }
+
       unit = (int) ini.get("Grid Settings", "unit", int.class);
       width = (int) ini.get("Grid Settings", "width", int.class);
       height = (int) ini.get("Grid Settings", "height", int.class);
@@ -249,6 +246,18 @@ public class Settings extends JDialog
         case 2 -> {
           main.theme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
           sTheme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        }
+        case 3 -> {
+          main.theme("javax.swing.plaf.metal.MetalLookAndFeel");
+          sTheme("javax.swing.plaf.metal.MetalLookAndFeel");
+        }
+        case 4 -> {
+          main.theme("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+          sTheme("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+        }
+        case 5 -> {
+          main.theme(UIManager.getCrossPlatformLookAndFeelClassName());
+          sTheme(UIManager.getCrossPlatformLookAndFeelClassName());
         }
       }
       ini.put("Theme", "current_theme", ""+theme_number);

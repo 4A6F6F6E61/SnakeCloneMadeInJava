@@ -5,7 +5,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.script.*;
-// test
+
+@Author(
+        name = "Joona Brueckner",
+        github = "@Zockedidock"
+)
 public class calc extends JFrame
 {
   JTextField calcTF = new JTextField();

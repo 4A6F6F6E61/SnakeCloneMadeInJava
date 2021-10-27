@@ -1,4 +1,5 @@
 package com.shiedix;
+
 import net.arikia.dev.drpc.DiscordRPC;
 import net.arikia.dev.drpc.DiscordRichPresence;
 import java.awt.*;
@@ -6,6 +7,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.net.*;
 
+@Author(
+        name = "Joona Brueckner",
+        github = "@Zockedidock"
+)
 public class About extends JDialog
 {
   public About(JFrame owner, boolean modal)
