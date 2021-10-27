@@ -90,11 +90,11 @@ public class MainMenu extends JFrame
     // end components
     // start style
     try {
-      if (build) {
+      if (build)
         ini = new Wini(new File("settings.ini"));
-      } else {
+      else
         ini = new Wini(new File("src/com/shiedix/settings.ini"));
-      }
+
       UIManager.setLookAndFeel("com.formdev.flatlaf.FlatDarculaLaf");
       switch ((int) ini.get("Theme", "current_theme", int.class)) {
         case 0 -> theme("com.formdev.flatlaf.FlatDarculaLaf");
