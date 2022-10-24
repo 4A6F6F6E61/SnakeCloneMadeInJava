@@ -13,7 +13,9 @@ import net.arikia.dev.drpc.DiscordRichPresence;
         name = "Joona Brueckner",
         github = "@Zockedidock"
 )
-public class GamePanel extends JPanel implements ActionListener
+public class GamePanel
+extends JPanel
+implements ActionListener
 {
     static int width;
     static int height;
@@ -51,11 +53,12 @@ public class GamePanel extends JPanel implements ActionListener
             } else {
                 ini = new Wini(new File("src/com/shiedix/settings.ini"));
             }
-            unit = (int) ini.get("Grid Settings", "unit", int.class);
-            width = (int) ini.get("Grid Settings", "width", int.class);
-            height = (int) ini.get("Grid Settings", "height", int.class);
+            unit       = (int) ini.get("Grid Settings", "unit", int.class);
+            width      = (int) ini.get("Grid Settings", "width", int.class);
+            height     = (int) ini.get("Grid Settings", "height", int.class);
             high_score = (int) ini.get("High Score", "high_score", int.class);
-            delay = (int) ini.get("Timer", "delay", int.class);
+            delay      = (int) ini.get("Timer", "delay", int.class);
+
             switch ((int) ini.get("Theme", "current_theme", int.class)) {
                 case 0 -> setTheme("Material Dark");
                 case 1 -> setTheme("Material Light");

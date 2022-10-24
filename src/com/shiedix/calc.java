@@ -26,8 +26,8 @@ public class calc extends JFrame
       System.out.println("" + e);
     }
     setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    int frameWidth = 209;
-    int frameHeight = 229;
+    int frameWidth = 222;
+    int frameHeight = 235;
     setSize(frameWidth, frameHeight);
     Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
     int x = (d.width - getSize().width) / 2;

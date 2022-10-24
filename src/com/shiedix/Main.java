@@ -18,7 +18,8 @@ class Main
     {
         Runtime.getRuntime().addShutdownHook(new Thread(DiscordRPC::discordShutdown));
     }
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args)
+    throws IOException
     {
         initDiscord();
         menu = new MainMenu("Snake");
