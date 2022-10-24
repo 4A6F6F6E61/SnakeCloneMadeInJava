@@ -78,7 +78,7 @@ public class About extends JDialog
   }
   public void bGitHub_ActionPerformed(ActionEvent evt)
   {
-    openWebpage("https://github.com/Zockedidock/SnakeCloneMadeInJava/");
+    openWebpage("https://github.com/4A6F6F6E61/SnakeCloneMadeInJava/");
   }
   public void bDone_ActionPerformed(ActionEvent evt)
   {
