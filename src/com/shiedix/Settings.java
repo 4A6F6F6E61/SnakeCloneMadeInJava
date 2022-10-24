@@ -26,7 +26,7 @@ public class Settings extends JDialog
   private final MainMenu main;
   boolean build = Main.BUILD;
   private final String[] cbOptions = {
-          "Material Dark", "Material Light", "Windows Light", "Default Java L&F", "Motif L&F", "Default OS L&F"
+          "Material Dark", "Material Light", "Windows Light", "Default Java L&F", "Motif L&F", "Default OS L&F", "Nimbus", "MacOS Aqua"
   };
   private final JComboBox cbTheme = new JComboBox(cbOptions);
   private Wini ini;
@@ -239,10 +239,6 @@ public class Settings extends JDialog
           main.theme("com.formdev.flatlaf.FlatDarculaLaf");
           sTheme("com.formdev.flatlaf.FlatDarculaLaf");
         }
-        case 1 -> {
-          main.theme("com.formdev.flatlaf.FlatIntelliJLaf");
-          sTheme("com.formdev.flatlaf.FlatIntelliJLaf");
-        }
         case 2 -> {
           main.theme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
           sTheme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -258,6 +254,18 @@ public class Settings extends JDialog
         case 5 -> {
           main.theme(UIManager.getCrossPlatformLookAndFeelClassName());
           sTheme(UIManager.getCrossPlatformLookAndFeelClassName());
+        }
+        case 6 -> {
+          main.theme("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+          sTheme("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        }
+        case 7 -> {
+          main.theme("com.apple.laf.AquaLookAndFeel");
+          sTheme("com.apple.laf.AquaLookAndFeel");
+        }
+        default -> {
+          main.theme("com.formdev.flatlaf.FlatIntelliJLaf");
+          sTheme("com.formdev.flatlaf.FlatIntelliJLaf");
         }
       }
       ini.put("Theme", "current_theme", ""+theme_number);
