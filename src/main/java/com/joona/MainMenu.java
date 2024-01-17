@@ -103,6 +103,12 @@ public class MainMenu extends JFrame
         case 3 -> theme("javax.swing.plaf.metal.MetalLookAndFeel");
         case 4 -> theme("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
         case 5 -> theme(UIManager.getCrossPlatformLookAndFeelClassName());
+        case 6 -> theme("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        case 7 -> theme("com.apple.laf.AquaLookAndFeel");
+        default -> {
+          System.out.println("Unknown theme, using FlatLaf");
+          theme("com.formdev.flatlaf.FlatIntelliJLaf");
+        }
       }
     } catch(Exception e) {
       System.out.println("Error: "+e);

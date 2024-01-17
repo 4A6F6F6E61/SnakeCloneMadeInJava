@@ -23,6 +23,9 @@ public class Settings extends JDialog
   static int height;
   static int unit;
   static int delay;
+
+  static int inputX = 68;
+  static int saveX = 210;
   private final MainMenu main;
   boolean build = Main.BUILD;
   private final String[] cbOptions = {
@@ -69,61 +72,45 @@ public class Settings extends JDialog
     cp.setLayout(null);
     // start components
     
-    tfUnit.setBounds(48, 8, 137, 25);
+    tfUnit.setBounds(inputX, 8, 137, 25);
     tfUnit.setToolTipText("Unit...");
     tfUnit.setText("" + unit);
     cp.add(tfUnit);
-    tfWidth.setBounds(48, 40, 137, 25);
+    tfWidth.setBounds(inputX, 40, 137, 25);
     tfWidth.setToolTipText("Width...");
     tfWidth.setText("" + width);
     cp.add(tfWidth);
-    tfHeight.setBounds(48, 72, 137, 25);
+    tfHeight.setBounds(inputX, 72, 137, 25);
     tfHeight.setToolTipText("Height...");
     tfHeight.setText("" + height);
     cp.add(tfHeight);
-    tfDelay.setBounds(48, 104, 137, 25);
+    tfDelay.setBounds(inputX, 104, 137, 25);
     tfDelay.setToolTipText("Thread time...");
     tfDelay.setText("" + delay);
     cp.add(tfDelay);
     JButton bUnit = new JButton();
-    bUnit.setBounds(192, 8, 57, 25);
+    bUnit.setBounds(saveX, 8, 57, 25);
     bUnit.setText("Save");
     bUnit.setMargin(new Insets(2, 2, 2, 2));
-    bUnit.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        bUnit_ActionPerformed(evt);
-      }
-    });
+    bUnit.addActionListener(this::bUnit_ActionPerformed);
     cp.add(bUnit);
     JButton bWidth = new JButton();
-    bWidth.setBounds(192, 40, 57, 25);
+    bWidth.setBounds(saveX, 40, 57, 25);
     bWidth.setText("Save");
     bWidth.setMargin(new Insets(2, 2, 2, 2));
-    bWidth.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        bWidth_ActionPerformed(evt);
-      }
-    });
+    bWidth.addActionListener(this::bWidth_ActionPerformed);
     cp.add(bWidth);
     JButton bHeight = new JButton();
-    bHeight.setBounds(192, 72, 57, 25);
+    bHeight.setBounds(saveX, 72, 57, 25);
     bHeight.setText("Save");
     bHeight.setMargin(new Insets(2, 2, 2, 2));
-    bHeight.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        bHeight_ActionPerformed(evt);
-      }
-    });
+    bHeight.addActionListener(this::bHeight_ActionPerformed);
     cp.add(bHeight);
     JButton bDelay = new JButton();
-    bDelay.setBounds(192, 104, 57, 25);
+    bDelay.setBounds(saveX, 104, 57, 25);
     bDelay.setText("Save");
     bDelay.setMargin(new Insets(2, 2, 2, 2));
-    bDelay.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        bDelay_ActionPerformed(evt);
-      }
-    });
+    bDelay.addActionListener(this::bDelay_ActionPerformed);
     cp.add(bDelay);
     JLabel lUnit = new JLabel();
     lUnit.setBounds(8, 8, 33, 25);
@@ -156,34 +143,22 @@ public class Settings extends JDialog
     cbTheme.setToolTipText("Theme...");
     cp.add(cbTheme);
     JButton bTheme = new JButton();
-    bTheme.setBounds(192, 134, 57, 25);
+    bTheme.setBounds(saveX, 134, 57, 25);
     bTheme.setText("Save");
     bTheme.setMargin(new Insets(2, 2, 2, 2));
-    bTheme.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent evt) {
-        bTheme_ActionPerformed(evt);
-      }
-    });
+    bTheme.addActionListener(this::bTheme_ActionPerformed);
     cp.add(bTheme);
-    JButton bCancle = new JButton();
-    bCancle.setBounds(24, 164, 97, 25);
-    bCancle.setText("cancle");
-    bCancle.setMargin(new Insets(2, 2, 2, 2));
-    bCancle.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        bCancle_ActionPerformed(evt);
-      }
-    });
-    cp.add(bCancle);
+    JButton bCancel = new JButton();
+    bCancel.setBounds(24, 164, 97, 25);
+    bCancel.setText("cancel");
+    bCancel.setMargin(new Insets(2, 2, 2, 2));
+    bCancel.addActionListener(this::bCancle_ActionPerformed);
+    cp.add(bCancel);
     JButton bSaveall = new JButton();
     bSaveall.setBounds(128, 164, 97, 25);
     bSaveall.setText("Save all");
     bSaveall.setMargin(new Insets(2, 2, 2, 2));
-    bSaveall.addActionListener(new ActionListener() { 
-      public void actionPerformed(ActionEvent evt) { 
-        bSaveall_ActionPerformed(evt);
-      }
-    });
+    bSaveall.addActionListener(this::bSaveall_ActionPerformed);
     cp.add(bSaveall);
     // end components
     
@@ -234,40 +209,18 @@ public class Settings extends JDialog
   public void changeTheme(int theme_number)
   {
     try {
-      switch (theme_number) {
-        case 0 -> {
-          main.theme("com.formdev.flatlaf.FlatDarculaLaf");
-          sTheme("com.formdev.flatlaf.FlatDarculaLaf");
-        }
-        case 2 -> {
-          main.theme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-          sTheme("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        }
-        case 3 -> {
-          main.theme("javax.swing.plaf.metal.MetalLookAndFeel");
-          sTheme("javax.swing.plaf.metal.MetalLookAndFeel");
-        }
-        case 4 -> {
-          main.theme("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-          sTheme("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-        }
-        case 5 -> {
-          main.theme(UIManager.getCrossPlatformLookAndFeelClassName());
-          sTheme(UIManager.getCrossPlatformLookAndFeelClassName());
-        }
-        case 6 -> {
-          main.theme("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-          sTheme("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        }
-        case 7 -> {
-          main.theme("com.apple.laf.AquaLookAndFeel");
-          sTheme("com.apple.laf.AquaLookAndFeel");
-        }
-        default -> {
-          main.theme("com.formdev.flatlaf.FlatIntelliJLaf");
-          sTheme("com.formdev.flatlaf.FlatIntelliJLaf");
-        }
-      }
+      String theme = switch (theme_number) {
+        case 0 -> "com.formdev.flatlaf.FlatDarculaLaf";
+        case 2 -> "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+        case 3 -> "javax.swing.plaf.metal.MetalLookAndFeel";
+        case 4 -> "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
+        case 5 -> UIManager.getCrossPlatformLookAndFeelClassName();
+        case 6 -> "javax.swing.plaf.nimbus.NimbusLookAndFeel";
+        case 7 -> "com.apple.laf.AquaLookAndFeel";
+        default -> "com.formdev.flatlaf.FlatIntelliJLaf";
+      };
+      main.theme(theme);
+      sTheme(theme);
       ini.put("Theme", "current_theme", ""+theme_number);
       ini.store();
     } catch(Exception e) {

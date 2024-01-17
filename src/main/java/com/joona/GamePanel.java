@@ -63,6 +63,7 @@ implements ActionListener
                 case 0 -> setTheme("Material Dark");
                 case 1 -> setTheme("Material Light");
                 case 2 -> setTheme("Windows Light");
+                case 7 -> setTheme("MacOS Aqua");
             }
 
         } catch(Exception e) {
